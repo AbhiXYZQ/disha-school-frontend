@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { User, Lock, ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const LoginPage = () => {
   const [role, setRole] = useState('student'); // 'student' or 'admin'
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLoginPage = (e) => {
     e.preventDefault();
     // Filhal bas redirect kar rahe hain (Backend baad mein)
-    if(role === 'student') navigate('/login');
-    else navigate('/login');
+    if(role === 'student') navigate('/LoginPage');
+    else navigate('/LoginPage');
   };
 
   return (
@@ -30,18 +30,18 @@ const Login = () => {
             className={`flex-1 py-4 font-bold text-sm transition ${role === 'student' ? 'text-blue-900 border-b-2 border-blue-900 bg-blue-50' : 'text-slate-400'}`}
             onClick={() => setRole('student')}
           >
-            Student Login
+            Student LoginPage
           </button>
           <button 
             className={`flex-1 py-4 font-bold text-sm transition ${role === 'admin' ? 'text-blue-900 border-b-2 border-blue-900 bg-blue-50' : 'text-slate-400'}`}
             onClick={() => setRole('admin')}
           >
-            Admin Login
+            Admin LoginPage
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleLogin} className="p-8 space-y-6">
+        <form onSubmit={handleLoginPage} className="p-8 space-y-6">
           <div>
             <label className="block text-slate-600 text-sm font-bold mb-2">Username / ID</label>
             <div className="relative">
@@ -59,7 +59,7 @@ const Login = () => {
           </div>
 
           <button className="w-full bg-yellow-500 text-blue-900 font-bold py-3 rounded-lg hover:bg-yellow-400 transition flex items-center justify-center gap-2">
-            Login as {role === 'student' ? 'Student' : 'Admin'} <ArrowRight size={20} />
+            LoginPage as {role === 'student' ? 'Student' : 'Admin'} <ArrowRight size={20} />
           </button>
 
           <div className="text-center">
@@ -72,4 +72,4 @@ const Login = () => {
   );
 };
 
-export default Login;   
+export default LoginPage;   

@@ -25,7 +25,7 @@ const Contact = () => {
               <Link to="/about" className="text-slate-600 hover:text-blue-900 transition">About Us</Link>
               <Link to="/contact" className="text-blue-900 font-bold transition">Contact Us</Link>
               <div className="flex gap-3 ml-4">
-                  <Link to="/login" className="px-5 py-2.5 rounded-full border border-blue-900 text-blue-900 font-semibold hover:bg-blue-50 transition text-sm">Student Portal</Link>
+                  <Link to="/LoginPage" className="px-5 py-2.5 rounded-full border border-blue-900 text-blue-900 font-semibold hover:bg-blue-50 transition text-sm">Student Portal</Link>
               </div>
             </nav>
 

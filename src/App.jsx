@@ -8,7 +8,7 @@ import StudentDashboard from './pages/StudentDashboard'; // Sahi file path
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Academics from './pages/Academics';
-import Login from './pages/Login'; // Naya Login Page
+import LoginPage from './pages/LoginPage'; // Naya LoginPage Page
 
 function App() {
   return (
@@ -26,8 +26,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/academics" element={<Academics />} />
         
-        {/* Login Page Route */}
-        <Route path="/login" element={<Login />} />
+        {/* LoginPage Page Route */}
+        <Route path="/LoginPage" element={<LoginPage />} />
       </Routes>
     </Router>
   );

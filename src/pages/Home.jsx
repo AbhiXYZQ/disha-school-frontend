@@ -55,11 +55,11 @@ const Home = () => {
               ))}
               
               <div className="flex gap-3 ml-4">
-                  <Link to="/login" className="px-5 py-2.5 rounded-full border border-blue-900 text-blue-900 font-semibold hover:bg-blue-50 transition text-sm">
+                  <Link to="/LoginPage" className="px-5 py-2.5 rounded-full border border-blue-900 text-blue-900 font-semibold hover:bg-blue-50 transition text-sm">
                   Student Portal
                   </Link>
-                  <Link to="/login" className="px-5 py-2.5 rounded-full bg-blue-900 text-white font-semibold shadow-lg hover:bg-blue-800 transition hover:shadow-xl text-sm">
-                  Admin Login
+                  <Link to="/LoginPage" className="px-5 py-2.5 rounded-full bg-blue-900 text-white font-semibold shadow-lg hover:bg-blue-800 transition hover:shadow-xl text-sm">
+                  Admin LoginPage
                   </Link>
               </div>
             </nav>
@@ -104,11 +104,11 @@ const Home = () => {
           </nav>
 
           <div className="p-6 border-t border-slate-100 flex flex-col gap-3 bg-slate-50">
-             <Link to="/login" onClick={() => setIsMenuOpen(false)} className="w-full py-3.5 text-center rounded-xl border-2 border-blue-900 text-blue-900 font-bold text-lg hover:bg-blue-100 transition">
+             <Link to="/LoginPage" onClick={() => setIsMenuOpen(false)} className="w-full py-3.5 text-center rounded-xl border-2 border-blue-900 text-blue-900 font-bold text-lg hover:bg-blue-100 transition">
              Student Portal
              </Link>
-             <Link to="/login" onClick={() => setIsMenuOpen(false)} className="w-full py-3.5 text-center rounded-xl bg-blue-900 text-white font-bold text-lg shadow-lg hover:bg-blue-800 transition">
-             Admin Login
+             <Link to="/LoginPage" onClick={() => setIsMenuOpen(false)} className="w-full py-3.5 text-center rounded-xl bg-blue-900 text-white font-bold text-lg shadow-lg hover:bg-blue-800 transition">
+             Admin LoginPage
              </Link>
           </div>
       </div>
@@ -129,7 +129,7 @@ const Home = () => {
                Preparing students for JEE, NEET, and Life. A holistic learning environment with state-of-the-art facilities and expert faculty.
              </p>
              <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
-               <Link to="/login" className="bg-yellow-500 text-slate-900 px-8 py-4 rounded-lg font-bold text-lg shadow-lg hover:bg-yellow-400 transition flex items-center justify-center gap-2">
+               <Link to="/LoginPage" className="bg-yellow-500 text-slate-900 px-8 py-4 rounded-lg font-bold text-lg shadow-lg hover:bg-yellow-400 transition flex items-center justify-center gap-2">
                  Join Online Classroom <ArrowRight size={20}/>
                </Link>
                <button className="px-8 py-4 rounded-lg font-bold text-lg border border-white/30 hover:bg-white/10 transition backdrop-blur-sm">
