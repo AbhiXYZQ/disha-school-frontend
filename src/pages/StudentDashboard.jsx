@@ -1,80 +1,106 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Video, BookOpen, Download } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { User, Bell, Download, FileText, LogOut, CheckCircle, AlertTriangle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { auth, db } from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 const StudentDashboard = () => {
-  const [classes, setClasses] = useState([]);
+  const [studentData, setStudentData] = useState(null);
+  const navigate = useNavigate();
 
-  // Server se Classes load karna
+  // Load Student Data on Login
   useEffect(() => {
-    axios.get('http://localhost:5000/api/classes')
-      .then(res => setClasses(res.data))
-      .catch(err => console.error(err));
-  }, []);
+    const fetchUserData = async () => {
+       const user = auth.currentUser;
+       if (user) {
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+             setStudentData(docSnap.data());
+          }
+       } else {
+          // Agar user login nahi hai toh login page par bhejo
+          navigate('/LoginPage');
+       }
+    };
+    fetchUserData();
+  }, [navigate]);
+
+  const handleLogout = () => {
+     auth.signOut();
+     localStorage.clear();
+     navigate('/LoginPage');
+  };
+
+  if (!studentData) return <div className="h-screen flex items-center justify-center">Loading Profile...</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
-      {/* Header */}
-      <header className="bg-blue-900 text-white p-4 shadow-lg">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold">Disha Nucleus - Student Portal</h1>
-          <Link to="/" className="text-sm hover:text-yellow-400">Logout</Link>
-        </div>
-      </header>
-
-      <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-        
-        {/* Section 1: Live Classes */}
-        <div className="bg-white p-6 rounded-xl shadow-md">
-          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-red-600">
-            <Video /> Live Classes
-          </h2>
-          <div className="space-y-4">
-            {classes.length === 0 ? (
-              <p className="text-gray-500">No live classes scheduled currently.</p>
-            ) : (
-              classes.map((cls) => (
-                <div key={cls._id} className="border-l-4 border-red-500 bg-red-50 p-4 rounded shadow-sm">
-                  <h3 className="font-bold text-lg">{cls.topic}</h3>
-                  <p className="text-gray-600 text-sm mb-2">Teacher: {cls.teacher} • Time: {cls.time}</p>
-                  <a 
-                    href={cls.meetLink} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="inline-block bg-red-600 text-white px-4 py-2 rounded text-sm font-bold hover:bg-red-700"
-                  >
-                    Join Now
-                  </a>
+    <div className="min-h-screen bg-slate-50 font-sans">
+       {/* Top Bar */}
+       <header className="bg-white shadow-sm p-4 sticky top-0 z-10">
+          <div className="container mx-auto flex justify-between items-center">
+             <div className="flex items-center gap-3">
+                <div className="bg-blue-100 p-2 rounded-full text-blue-600"><User size={24}/></div>
+                <div>
+                   <h1 className="font-bold text-slate-800 text-lg">Hello, {studentData.name} 👋</h1>
+                   <p className="text-xs text-slate-500">{studentData.course}</p>
                 </div>
-              ))
-            )}
+             </div>
+             <button onClick={handleLogout} className="text-red-500 hover:bg-red-50 p-2 rounded-full transition"><LogOut size={20}/></button>
           </div>
-        </div>
+       </header>
 
-        {/* Section 2: Study Material (Dummy for now) */}
-        <div className="bg-white p-6 rounded-xl shadow-md">
-          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-blue-600">
-            <BookOpen /> Study Notes
-          </h2>
-          <div className="space-y-4">
-            {/* Dummy Note */}
-            <div className="flex justify-between items-center border p-3 rounded hover:bg-gray-50">
-              <div>
-                <h4 className="font-bold">Physics Chapter 1 - PDF</h4>
-                <p className="text-xs text-gray-500">Uploaded Yesterday</p>
-              </div>
-              <button className="text-blue-600 hover:text-blue-800">
-                <Download size={20} />
-              </button>
-            </div>
-            <p className="text-center text-sm text-gray-400 mt-4">More notes coming soon...</p>
+       <div className="container mx-auto p-6 space-y-6">
+          
+          {/* Fee Status Card */}
+          <div className={`p-6 rounded-xl shadow-sm border-l-4 flex items-center justify-between ${studentData.feesStatus === 'Paid' ? 'bg-green-50 border-green-500' : 'bg-red-50 border-red-500'}`}>
+             <div>
+                <h3 className="text-slate-600 font-bold uppercase text-xs tracking-wider">Fee Status</h3>
+                <p className={`text-2xl font-bold ${studentData.feesStatus === 'Paid' ? 'text-green-700' : 'text-red-700'}`}>
+                   {studentData.feesStatus === 'Paid' ? 'Fully Paid ✅' : 'Payment Due ⚠️'}
+                </p>
+             </div>
+             {studentData.feesStatus === 'Paid' ? <CheckCircle size={32} className="text-green-500"/> : <AlertTriangle size={32} className="text-red-500"/>}
           </div>
-        </div>
 
-      </div>
+          {/* Notice Board */}
+          <div className="bg-white p-6 rounded-xl shadow-sm">
+             <h2 className="font-bold text-lg mb-4 flex items-center gap-2"><Bell className="text-yellow-500"/> Important Notices</h2>
+             <div className="space-y-3">
+                <div className="p-3 bg-yellow-50 border border-yellow-100 rounded text-sm text-yellow-800">
+                   📢 <strong>Exam Alert:</strong> Physics Test scheduled for Sunday, 10th Feb.
+                </div>
+                <div className="p-3 bg-blue-50 border border-blue-100 rounded text-sm text-blue-800">
+                   ℹ️ <strong>Holiday:</strong> Institute closed on Tuesday for Saraswati Puja.
+                </div>
+             </div>
+          </div>
+
+          {/* Notes Section */}
+          <div className="bg-white p-6 rounded-xl shadow-sm">
+             <h2 className="font-bold text-lg mb-4 flex items-center gap-2"><FileText className="text-blue-500"/> Study Material</h2>
+             <div className="space-y-2">
+                <NoteItem title="Physics: Electrostatics Formulas" date="Feb 05" />
+                <NoteItem title="Maths: Integration Cheat Sheet" date="Feb 02" />
+                <NoteItem title="Chemistry: Organic Roadmap" date="Jan 28" />
+             </div>
+          </div>
+       </div>
     </div>
   );
 };
+
+const NoteItem = ({ title, date }) => (
+   <div className="flex justify-between items-center p-3 hover:bg-slate-50 rounded border border-transparent hover:border-slate-100 transition">
+      <div className="flex items-center gap-3">
+         <div className="bg-red-100 text-red-500 p-2 rounded"><FileText size={18}/></div>
+         <div>
+            <h4 className="font-bold text-slate-700 text-sm">{title}</h4>
+            <p className="text-xs text-slate-400">{date}</p>
+         </div>
+      </div>
+      <button className="text-blue-600 hover:text-blue-800"><Download size={18}/></button>
+   </div>
+);
 
 export default StudentDashboard;

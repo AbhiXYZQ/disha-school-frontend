@@ -1,160 +1,192 @@
-import React, { useState } from 'react';
-import { Menu, X, BookOpen, Microscope, Calculator, PenTool, Brain, Monitor, CheckCircle, Trophy } from 'lucide-react';
+import React from 'react';
+import { BookOpen, Microscope, Calculator, Brain, CheckCircle, GraduationCap, Baby, Pencil, Atom } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Academics = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
       
-      {/* --- NAVBAR --- */}
-      <header className="sticky top-0 z-40 bg-white shadow-sm border-b border-slate-100 w-full">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <Link to="/" className="flex items-center gap-3 relative z-20">
-               <img src="/school-logo.png" alt="Logo" className="w-12 h-12 object-contain" />
-               <div>
-                  <h1 className="text-2xl font-bold text-slate-900 leading-none">Disha Nucleus</h1>
-                  <p className="text-[10px] text-slate-500 tracking-widest font-bold mt-1 uppercase">Senior Secondary School</p>
-               </div>
-            </Link>
-            
-            <nav className="hidden md:flex space-x-8 items-center font-medium text-sm">
-              <Link to="/" className="text-slate-600 hover:text-blue-900 transition">Home</Link>
-              <Link to="/about" className="text-slate-600 hover:text-blue-900 transition">About Us</Link>
-              <Link to="/academics" className="text-blue-900 font-bold transition">Academics</Link>
-              <div className="flex gap-3 ml-4">
-                  <Link to="/LoginPage" className="px-5 py-2.5 rounded-full border border-blue-900 text-blue-900 font-semibold hover:bg-blue-50 transition text-sm">Student Portal</Link>
-              </div>
-            </nav>
-
-            <button className="md:hidden text-slate-900 p-2 relative z-20" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
+      {/* --- 1. HERO SECTION --- */}
+      <div className="relative h-[400px] flex items-center justify-center overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 opacity-20">
+            {/* Background Pattern */}
+            <div className="absolute right-0 top-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-30 translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute left-0 bottom-0 w-96 h-96 bg-green-500 rounded-full blur-3xl opacity-30 -translate-x-1/2 translate-y-1/2"></div>
         </div>
-      </header>
-
-      {/* --- HERO SECTION --- */}
-      <div className="bg-blue-900 text-white py-20 text-center relative overflow-hidden">
-         {/* Background decoration */}
-         <div className="absolute top-0 left-0 w-full h-full opacity-10">
-            <div className="absolute right-10 top-10 w-32 h-32 rounded-full border-4 border-white"></div>
-            <div className="absolute left-10 bottom-10 w-20 h-20 rounded-full border-2 border-yellow-400"></div>
-         </div>
-         
-         <div className="container mx-auto px-6 relative z-10">
-           <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Academic Excellence</h1>
-           <p className="text-blue-200 text-lg max-w-2xl mx-auto">
-             Comprehensive curriculum designed to crack Competitive Exams (JEE/NEET) while excelling in Board Exams.
+        
+        <div className="container mx-auto px-6 relative z-10 text-center">
+           <span className="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold tracking-widest uppercase mb-4 backdrop-blur-md">
+             Academic Spectrum
+           </span>
+           <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
+             From <span className="text-green-400">ABCs</span> to <span className="text-blue-400">IIT-JEE</span>
+           </h1>
+           <p className="text-blue-100 text-lg max-w-2xl mx-auto">
+             A complete educational roadmap designed to nurture curiosity in childhood and ambition in teenage years.
            </p>
         </div>
       </div>
 
-      {/* --- STREAMS OFFERED --- */}
-      <div className="container mx-auto px-6 py-16">
-        <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900">Streams Offered (Class XI & XII)</h2>
-            <p className="text-slate-500 mt-2">We offer specialized coaching integrated with the CBSE curriculum.</p>
-        </div>
+      {/* --- 2. JUNIOR WING (Schooling) --- */}
+      <div className="py-20 bg-white">
+         <div className="container mx-auto px-6">
+            <div className="flex items-center gap-4 mb-12">
+               <div className="p-3 bg-green-100 rounded-xl text-green-600">
+                  <Baby size={32} />
+               </div>
+               <div>
+                  <h2 className="text-3xl font-bold text-slate-900">Junior Wing Programs</h2>
+                  <p className="text-slate-500">Dynamic Public School (Playgroup - Class 6)</p>
+               </div>
+            </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Science Stream */}
-            <StreamCard 
-              icon={<Microscope size={40} className="text-white" />}
-              title="Science (PCM / PCB)"
-              bg="bg-blue-600"
-              features={['Physics, Chemistry, Maths/Bio', 'Integrated JEE/NEET Coaching', 'Advanced Science Labs', 'Regular Mock Tests']}
-            />
-            
-            {/* Commerce Stream */}
-            <StreamCard 
-              icon={<Calculator size={40} className="text-white" />}
-              title="Commerce"
-              bg="bg-slate-800"
-              features={['Accountancy, Business Studies', 'Economics, English', 'CA Foundation Guidance', 'Computer Informatics']}
-            />
-
-            {/* Humanities */}
-            <StreamCard 
-              icon={<PenTool size={40} className="text-white" />}
-              title="Humanities / Arts"
-              bg="bg-yellow-500"
-              features={['History, Pol. Science', 'Geography, Economics', 'UPSC Foundation Basics', 'Creative Writing']}
-            />
-        </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+               {/* Program 1 */}
+               <ProgramCard 
+                  title="Early Years (Play - KG)"
+                  theme="green"
+                  desc="Focus on motor skills, social interaction, and basic literacy through play-way method."
+                  features={['Activity Based Learning', 'No School Bag Policy', 'Phonics & Storytelling']}
+               />
+               {/* Program 2 */}
+               <ProgramCard 
+                  title="Primary (Class 1 - 5)"
+                  theme="green"
+                  desc="Building strong foundations in Maths, Science, and Languages with curiosity-driven learning."
+                  features={['Conceptual Clarity', 'Computer Education', 'Public Speaking']}
+               />
+               {/* Program 3 */}
+               <ProgramCard 
+                  title="Middle School (Class 6)"
+                  theme="green"
+                  desc="Bridging the gap to higher studies introducing logical reasoning and critical thinking."
+                  features={['Introduction to Coding', 'Science Experiments', 'Olympiad Basics']}
+               />
+            </div>
+         </div>
       </div>
 
-      {/* --- METHODOLOGY SECTION --- */}
-      <div className="bg-white py-16 border-y border-slate-100">
+      {/* --- 3. SENIOR WING (Coaching) --- */}
+      <div className="py-20 bg-slate-50 border-t border-slate-200">
          <div className="container mx-auto px-6">
-            <div className="flex flex-col md:flex-row gap-12 items-center">
-               <div className="flex-1">
-                  <h2 className="text-3xl font-bold text-slate-900 mb-6">Our Teaching Methodology</h2>
-                  <div className="space-y-6">
-                     <MethodItem title="Smart Classrooms" desc="Digital learning with interactive panels to visualize complex concepts." icon={<Monitor className="text-blue-600"/>} />
-                     <MethodItem title="Remedial Classes" desc="Special attention for students who need extra support in specific subjects." icon={<Brain className="text-blue-600"/>} />
-                     <MethodItem title="Weekly Assessment" desc="Continuous evaluation through weekly tests to track progress." icon={<CheckCircle className="text-blue-600"/>} />
-                  </div>
+            <div className="flex items-center gap-4 mb-12">
+               <div className="p-3 bg-blue-100 rounded-xl text-blue-600">
+                  <Atom size={32} />
                </div>
-               
-               <div className="flex-1 bg-blue-50 p-8 rounded-2xl relative">
-                  <h3 className="text-xl font-bold text-blue-900 mb-6 flex items-center gap-2">
-                     <Trophy className="text-yellow-500" /> Recent Achievements
-                  </h3>
-                  <ul className="space-y-4">
-                     <li className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-green-500">
-                        <div className="font-bold text-slate-800">JEE Advanced 2025</div>
-                        <div className="text-sm text-slate-500">12 Students Qualified for IITs</div>
-                     </li>
-                     <li className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-500">
-                        <div className="font-bold text-slate-800">NEET 2025</div>
-                        <div className="text-sm text-slate-500">8 Students Secured MBBS Seats</div>
-                     </li>
-                     <li className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-yellow-500">
-                        <div className="font-bold text-slate-800">CBSE District Topper</div>
-                        <div className="text-sm text-slate-500">Ankit Kumar - 98.6% (Science)</div>
-                     </li>
-                  </ul>
+               <div>
+                  <h2 className="text-3xl font-bold text-slate-900">Senior Wing Programs</h2>
+                  <p className="text-slate-500">Dynamic Coaching Centre (Class 7 - 12)</p>
                </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+               {/* Program 1 */}
+               <ProgramCard 
+                  title="Foundation (Class 7 - 10)"
+                  theme="blue"
+                  desc="Early preparation for competitive exams ensuring strong command over Science & Maths."
+                  features={['NTSE / Olympiad Prep', 'Advanced Board Syllabus', 'Mental Ability Training']}
+               />
+               {/* Program 2 */}
+               <ProgramCard 
+                  title="Engineering (JEE Main/Adv)"
+                  theme="blue"
+                  desc="Rigorous training for IITs & NITs with focus on Physics, Chemistry, and Mathematics."
+                  features={['Daily Practice Papers (DPP)', 'All India Test Series', 'Doubt Clearing Desk']}
+               />
+               {/* Program 3 */}
+               <ProgramCard 
+                  title="Medical (NEET-UG)"
+                  theme="blue"
+                  desc="Comprehensive biology-centric coaching for aspiring doctors with NCERT mastery."
+                  features={['Line-by-Line NCERT', 'Diagram Based Learning', 'Previous Year Questions']}
+               />
+            </div>
+         </div>
+      </div>
+
+      {/* --- 4. METHODOLOGY (Why Us) --- */}
+      <div className="py-20 bg-slate-900 text-white">
+         <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+               <h2 className="text-3xl font-bold mb-4">The Dynamic Advantage</h2>
+               <p className="text-slate-400">How we ensure success at every level</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+               <FeatureItem icon={<BookOpen />} title="Custom Study Material" desc="Curated by top experts to match exam patterns." />
+               <FeatureItem icon={<Microscope />} title="Practical Learning" desc="Labs and visual aids for better understanding." />
+               <FeatureItem icon={<Brain />} title="Personal Mentorship" desc="One-on-one guidance for every student's growth." />
+               <FeatureItem icon={<CheckCircle />} title="Regular Assessment" desc="Weekly tests to track and improve performance." />
             </div>
          </div>
       </div>
 
       {/* --- FOOTER --- */}
-      <footer className="bg-slate-900 text-slate-400 py-8 text-center text-sm">
-        <p>© 2026 Disha Nucleus School. All rights reserved.</p>
+      <footer className="bg-slate-900 text-slate-400 py-12 border-t-4 border-yellow-500">
+        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
+           <div>
+              <h4 className="text-white text-lg font-bold mb-4 flex items-center gap-2">
+                <img src="/school-logo.png" alt="Logo" className="w-8 h-8 object-contain bg-white rounded-full p-1" />
+                Dynamic Campus
+              </h4>
+              <p className="text-sm leading-relaxed mb-4">
+                 Dynamic Public School & Dynamic Coaching Centre. <br/>
+                 Education that matters.
+              </p>
+           </div>
+           <div>
+              <h4 className="text-white text-lg font-bold mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-sm">
+                 <li><Link to="/about" className="hover:text-yellow-400 transition">About Us</Link></li>
+                 <li><Link to="/contact" className="hover:text-yellow-400 transition">Admissions</Link></li>
+              </ul>
+           </div>
+           <div className="flex flex-col justify-end text-right">
+              <p className="text-xs text-slate-600">Developed by Abhishek Kumar</p>
+           </div>
+        </div>
       </footer>
     </div>
   );
 };
 
-// --- Helper Components ---
-const StreamCard = ({ icon, title, bg, features }) => (
-  <div className={`p-8 rounded-2xl ${bg} text-white shadow-xl hover:-translate-y-2 transition-transform duration-300`}>
-     <div className="mb-6 opacity-90">{icon}</div>
-     <h3 className="text-2xl font-bold mb-6 border-b border-white/20 pb-4">{title}</h3>
-     <ul className="space-y-3">
-       {features.map((feat, index) => (
-         <li key={index} className="flex items-start gap-3 text-sm">
-            <CheckCircle size={16} className="mt-1 flex-shrink-0 text-white/70" />
-            <span className="text-blue-50">{feat}</span>
-         </li>
-       ))}
-     </ul>
-  </div>
-);
+// --- HELPER COMPONENTS ---
 
-const MethodItem = ({ title, desc, icon }) => (
-   <div className="flex gap-4">
-      <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center flex-shrink-0">
+const ProgramCard = ({ title, desc, features, theme }) => {
+   const isGreen = theme === 'green';
+   const accentColor = isGreen ? 'bg-green-500' : 'bg-blue-600';
+   const lightBg = isGreen ? 'bg-green-50' : 'bg-blue-50';
+   const textColor = isGreen ? 'text-green-700' : 'text-blue-700';
+
+   return (
+      <div className="bg-white rounded-2xl p-8 shadow-lg hover:-translate-y-2 transition-transform duration-300 border border-slate-100 relative overflow-hidden group">
+         <div className={`absolute top-0 left-0 w-full h-1.5 ${accentColor}`}></div>
+         
+         <h3 className="text-2xl font-bold text-slate-900 mb-4">{title}</h3>
+         <p className="text-slate-600 text-sm mb-6 leading-relaxed">{desc}</p>
+         
+         <div className={`p-4 rounded-xl ${lightBg}`}>
+            <ul className="space-y-3">
+               {features.map((feat, index) => (
+                  <li key={index} className="flex items-start gap-3 text-sm font-medium text-slate-700">
+                     <CheckCircle size={16} className={`mt-0.5 flex-shrink-0 ${textColor}`} />
+                     {feat}
+                  </li>
+               ))}
+            </ul>
+         </div>
+      </div>
+   );
+};
+
+const FeatureItem = ({ icon, title, desc }) => (
+   <div className="text-center p-6 bg-slate-800 rounded-xl hover:bg-slate-700 transition">
+      <div className="inline-block p-4 bg-slate-900 rounded-full text-blue-400 mb-4 shadow-lg border border-slate-700">
          {icon}
       </div>
-      <div>
-         <h4 className="font-bold text-slate-900 text-lg">{title}</h4>
-         <p className="text-slate-600 text-sm mt-1">{desc}</p>
-      </div>
+      <h4 className="text-xl font-bold text-white mb-2">{title}</h4>
+      <p className="text-slate-400 text-sm">{desc}</p>
    </div>
 );
 

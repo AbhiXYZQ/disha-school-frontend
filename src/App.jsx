@@ -9,10 +9,15 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Academics from './pages/Academics';
 import LoginPage from './pages/LoginPage'; // Naya LoginPage Page
+import ScrollToTop from './components/ScrollToTop';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
+      <Navbar />
+
       <Routes>
         {/* --- ROUTES --- */}
         <Route path="/" element={<Home />} />

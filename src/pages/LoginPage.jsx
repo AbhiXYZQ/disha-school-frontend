@@ -1,75 +1,109 @@
 import React, { useState } from 'react';
-import { User, Lock, ArrowRight } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { User, Lock, ArrowRight, ShieldCheck, GraduationCap, AlertCircle, Loader2 } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore'; // Database se data lene ke liye
+import { auth, db } from '../firebase'; // Apni firebase file
 
 const LoginPage = () => {
-  const [role, setRole] = useState('student'); // 'student' or 'admin'
+  const [role, setRole] = useState('student'); 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLoginPage = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Filhal bas redirect kar rahe hain (Backend baad mein)
-    if(role === 'student') navigate('/LoginPage');
-    else navigate('/LoginPage');
+    setError('');
+    setLoading(true);
+
+    try {
+      // 1. Firebase Auth Login
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // 2. Database se User ka Role aur Data check karo
+      // Hum manke chal rahe hain ki 'users' collection mein data hai
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        
+        // Check Role Mismatch
+        if (userData.role !== role) {
+           throw new Error(`Aap ${role} nahi hain! Sahi role select karein.`);
+        }
+
+        // 3. Sahi jagah bhejo aur User Data LocalStorage mein save karo (Taaki Dashboard par naam dikhe)
+        localStorage.setItem("userName", userData.name);
+        
+        if (role === 'admin') {
+           navigate('/admin');
+        } else {
+           navigate('/student');
+        }
+
+      } else {
+         // Agar database mein data nahi mila (Emergency Fallback)
+         if(email === "admin@dynamic.in") {
+             navigate('/admin');
+         } else {
+             throw new Error("User record not found in database.");
+         }
+      }
+
+    } catch (err) {
+      console.error(err);
+      if (err.code === 'auth/invalid-credential') {
+        setError("Email ya Password galat hai!");
+      } else {
+        setError(err.message || "Login Failed. Try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-      <div className="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden">
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+       {/* Design Same as before, just logic updated above */}
+       <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden">
+        <div className="bg-blue-600 p-8 text-center">
+            <h2 className="text-3xl font-bold text-white mb-1">Dynamic Campus</h2>
+            <p className="text-blue-100 text-sm">Official Portal Login</p>
+        </div>
         
-        {/* Header */}
-        <div className="bg-blue-900 p-8 text-center">
-          <img src="/school-logo.png" alt="Logo" className="w-16 h-16 mx-auto bg-white rounded-full p-2 mb-4 object-contain" />
-          <h2 className="text-2xl font-bold text-white">Welcome Back</h2>
-          <p className="text-blue-200 text-sm">Sign in to access your dashboard</p>
+        {/* Role Tabs */}
+        <div className="flex border-b border-slate-200">
+           <button onClick={() => setRole('student')} className={`flex-1 py-4 font-bold text-sm flex items-center justify-center gap-2 ${role === 'student' ? 'text-blue-600 bg-blue-50 border-b-2 border-blue-600' : 'text-slate-400'}`}>
+              <GraduationCap size={18}/> Student
+           </button>
+           <button onClick={() => setRole('admin')} className={`flex-1 py-4 font-bold text-sm flex items-center justify-center gap-2 ${role === 'admin' ? 'text-purple-600 bg-purple-50 border-b-2 border-purple-600' : 'text-slate-400'}`}>
+              <ShieldCheck size={18}/> Admin
+           </button>
         </div>
 
-        {/* Tabs */}
-        <div className="flex border-b border-slate-100">
-          <button 
-            className={`flex-1 py-4 font-bold text-sm transition ${role === 'student' ? 'text-blue-900 border-b-2 border-blue-900 bg-blue-50' : 'text-slate-400'}`}
-            onClick={() => setRole('student')}
-          >
-            Student LoginPage
-          </button>
-          <button 
-            className={`flex-1 py-4 font-bold text-sm transition ${role === 'admin' ? 'text-blue-900 border-b-2 border-blue-900 bg-blue-50' : 'text-slate-400'}`}
-            onClick={() => setRole('admin')}
-          >
-            Admin LoginPage
-          </button>
-        </div>
+        <form onSubmit={handleLogin} className="p-8 space-y-5">
+           {error && <div className="bg-red-50 text-red-600 p-3 rounded text-sm flex items-center gap-2"><AlertCircle size={16}/>{error}</div>}
+           
+           <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1">Email</label>
+              <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder={role === 'admin' ? "admin@dynamic.in" : "student@example.com"} required />
+           </div>
+           <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1">Password</label>
+              <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="••••••••" required />
+           </div>
 
-        {/* Form */}
-        <form onSubmit={handleLoginPage} className="p-8 space-y-6">
-          <div>
-            <label className="block text-slate-600 text-sm font-bold mb-2">Username / ID</label>
-            <div className="relative">
-              <User size={20} className="absolute left-3 top-3 text-slate-400" />
-              <input type="text" placeholder="Enter your ID" className="w-full pl-10 p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-900" required />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-slate-600 text-sm font-bold mb-2">Password</label>
-            <div className="relative">
-              <Lock size={20} className="absolute left-3 top-3 text-slate-400" />
-              <input type="password" placeholder="••••••••" className="w-full pl-10 p-3 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-900" required />
-            </div>
-          </div>
-
-          <button className="w-full bg-yellow-500 text-blue-900 font-bold py-3 rounded-lg hover:bg-yellow-400 transition flex items-center justify-center gap-2">
-            LoginPage as {role === 'student' ? 'Student' : 'Admin'} <ArrowRight size={20} />
-          </button>
-
-          <div className="text-center">
-            <Link to="/" className="text-sm text-slate-400 hover:text-blue-900">Back to Home</Link>
-          </div>
+           <button disabled={loading} className={`w-full py-3 rounded-lg text-white font-bold flex justify-center items-center gap-2 ${role==='student' ? 'bg-blue-600 hover:bg-blue-700' : 'bg-purple-600 hover:bg-purple-700'}`}>
+              {loading ? <Loader2 className="animate-spin"/> : "Login Securely"}
+           </button>
         </form>
-
-      </div>
+       </div>
     </div>
   );
 };
 
-export default LoginPage;   
+export default LoginPage;
