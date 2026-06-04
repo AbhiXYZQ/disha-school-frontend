@@ -16,7 +16,7 @@ const About = () => {
         </div>
         <div className="relative z-10 text-center px-4">
            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 tracking-tight">
-             About Dynamic Campus
+             About Disha Nucleus
            </h1>
            <div className="h-1 w-24 bg-yellow-500 mx-auto rounded-full mb-4"></div>
            <p className="text-slate-300 text-lg max-w-2xl mx-auto font-light">
@@ -32,7 +32,7 @@ const About = () => {
                <span className="text-blue-600 font-bold tracking-widest uppercase text-xs mb-2 block">Our Story</span>
                <h2 className="text-3xl font-bold text-slate-900 mb-6">Two Wings, One Vision</h2>
                <p className="text-slate-600 leading-relaxed mb-6 text-lg">
-                  Dynamic Campus operates on a simple philosophy: <strong>"Strong Roots, High Wings"</strong>.
+                  Disha Nucleus operates on a simple philosophy: <strong>"Strong Roots, High Wings"</strong>.
                </p>
                <p className="text-slate-600 leading-relaxed mb-6">
                   We realized that a child needs care and creativity in early years (Schooling), but needs strategy and rigour in teenage years (Coaching). To provide the best of both worlds under one roof, we established two specialized wings managed by experts in their respective fields.
@@ -158,7 +158,7 @@ const About = () => {
            <div>
               <h4 className="text-white text-lg font-bold mb-4 flex items-center gap-2">
                 <img src="/school-logo.png" alt="Logo" className="w-8 h-8 object-contain bg-white rounded-full p-1" />
-                Dynamic Campus
+                Disha Nucleus
               </h4>
               <p className="text-sm leading-relaxed mb-4">
                  Dynamic Public School & Dynamic Coaching Centre. <br/>

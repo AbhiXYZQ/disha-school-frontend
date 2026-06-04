@@ -46,7 +46,7 @@ const Navbar = () => {
             <Link to="/" className="flex items-center gap-3 relative z-20">
                <img src="/school-logo.png" alt="Logo" className="w-12 h-12 object-contain" />
                <div>
-                  <h1 className="text-xl md:text-2xl font-bold text-slate-900 leading-none">Dynamic Campus</h1>
+                  <h1 className="text-xl md:text-2xl font-bold text-slate-900 leading-none">Disha Nucleus</h1>
                   <p className="text-[10px] text-slate-500 tracking-widest font-bold mt-1 uppercase">
                     Public School & Coaching
                   </p>
@@ -92,7 +92,7 @@ const Navbar = () => {
           <div className="p-6 flex justify-between items-center border-b border-slate-100">
              <div className="flex items-center gap-2">
                 <img src="/school-logo.png" alt="Logo" className="w-10 h-10 object-contain" />
-                <span className="font-bold text-blue-900">Dynamic Campus</span>
+                <span className="font-bold text-blue-900">Disha Nucleus</span>
              </div>
              <button onClick={() => setIsMenuOpen(false)} className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-full transition">
                <X size={24} />

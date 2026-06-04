@@ -128,7 +128,7 @@ const Academics = () => {
            <div>
               <h4 className="text-white text-lg font-bold mb-4 flex items-center gap-2">
                 <img src="/school-logo.png" alt="Logo" className="w-8 h-8 object-contain bg-white rounded-full p-1" />
-                Dynamic Campus
+                Disha Nucleus
               </h4>
               <p className="text-sm leading-relaxed mb-4">
                  Dynamic Public School & Dynamic Coaching Centre. <br/>

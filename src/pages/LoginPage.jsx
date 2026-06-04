@@ -71,7 +71,7 @@ const LoginPage = () => {
        {/* Design Same as before, just logic updated above */}
        <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden">
         <div className="bg-blue-600 p-8 text-center">
-            <h2 className="text-3xl font-bold text-white mb-1">Dynamic Campus</h2>
+            <h2 className="text-3xl font-bold text-white mb-1">Disha Nucleus</h2>
             <p className="text-blue-100 text-sm">Official Portal Login</p>
         </div>
         

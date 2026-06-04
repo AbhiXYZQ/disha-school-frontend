@@ -8,7 +8,7 @@ const Home = () => {
     {
       id: 1,
       image: "cover1.jpg",
-      title: "Welcome to Dynamic Campus",
+      title: "Welcome to Disha Nucleus",
       subtitle: "Where Education Meets Excellence (Playgroup to Class 12th)"
     },
     {
@@ -170,7 +170,7 @@ const Home = () => {
       <div className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-             <h3 className="text-blue-900 font-bold tracking-widest uppercase text-xs mb-3">Why Choose Dynamic Campus?</h3>
+             <h3 className="text-blue-900 font-bold tracking-widest uppercase text-xs mb-3">Why Choose Disha Nucleus?</h3>
              <h3 className="text-3xl md:text-4xl font-bold text-slate-900">Education Beyond Books</h3>
           </div>
           
@@ -200,7 +200,7 @@ const Home = () => {
            <div>
               <h4 className="text-white text-lg font-bold mb-4 flex items-center gap-2">
                 <img src="/school-logo.png" alt="Logo" className="w-8 h-8 object-contain bg-white rounded-full p-1" />
-                Dynamic Campus
+                Disha Nucleus
               </h4>
               <p className="text-sm leading-relaxed mb-4">
                  From Foundation (Playgroup) to Career (JEE/NEET). We build the future leaders of tomorrow.

@@ -131,7 +131,7 @@ const Contact = () => {
       {/* --- FOOTER --- */}
       <footer className="bg-slate-900 text-slate-400 py-12 border-t-4 border-yellow-500">
         <div className="container mx-auto px-6 text-center">
-           <h4 className="text-white text-lg font-bold mb-2">Dynamic Campus</h4>
+           <h4 className="text-white text-lg font-bold mb-2">Disha Nucleus</h4>
            <p className="text-sm">Two Campuses. One Vision.</p>
            <p className="text-xs mt-4 text-slate-600">Developed by Abhishek Kumar</p>
         </div>
